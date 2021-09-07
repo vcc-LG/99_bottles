@@ -35,15 +35,21 @@ class Bottles
   def verses(*args)
     output = ''
     bottle_numbers = (args.max).downto(args.min)
-    bottle_numbers.each_with_index do |number_of_bottles, index|
+    bottle_numbers.each do |number_of_bottles|
       bottle_nouns = get_bottle_nouns(number_of_bottles)
       bottle_numbers = get_bottle_numbers(number_of_bottles)
       turnaround = get_turnaround(number_of_bottles)
       output += get_verse(bottle_nouns, bottle_numbers, turnaround)
-      output += "\n       \n" if index != bottle_numbers.size - 1
+      output += "\n       \n" if number_of_bottles != args.min
     end
     <<~VERSES
       #{output}
     VERSES
   end
+
+  def song
+    verses(99, 0)
+  end
 end
+
+puts Bottles.new.song
